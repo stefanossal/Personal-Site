@@ -249,12 +249,13 @@ html {
 // GitHub Projects Loader
 const githubUsername = "StefanosSal";
 
-fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated`)
+fetch(`https://gh-pinned-repos.egoist.dev/?username=${githubUsername}`)
   .then(res => res.json())
   .then(repos => {
     const container = document.getElementById("github-projects");
-    if (!Array.isArray(repos)) {
-      container.innerHTML = "<p>Failed to load repositories.</p>";
+
+    if (!Array.isArray(repos) || repos.length === 0) {
+      container.innerHTML = "<p>Failed to load pinned repositories.</p>";
       return;
     }
 
@@ -262,23 +263,24 @@ fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated`)
       const card = document.createElement("div");
       card.className = "w3-third w3-container w3-margin-bottom";
 
-   card.innerHTML = `
-  <div class="repo-card w3-white w3-hover-shadow w3-padding">
-    <h5><a href="${repo.html_url}" target="_blank">${repo.name}</a></h5>
-    <p class="repo-description">${repo.description || "No description."}</p>
-    <div class="repo-footer">
-      <i class="fa fa-star"></i> ${repo.stargazers_count} &nbsp;
-      <i class="fa fa-code-fork"></i> ${repo.forks_count}
-    </div>
-  </div>
-`;
+      card.innerHTML = `
+        <div class="repo-card w3-white w3-hover-shadow w3-padding">
+          <h5><a href="${repo.link}" target="_blank">${repo.repo}</a></h5>
+          <p class="repo-description">${repo.description || "No description."}</p>
+          <div class="repo-footer">
+            <i class="fa fa-star"></i> ${repo.stars} &nbsp;
+            <i class="fa fa-code-fork"></i> ${repo.forks}
+          </div>
+        </div>
+      `;
 
       container.appendChild(card);
     });
   })
   .catch(err => {
-    console.error("Error loading repos:", err);
-    document.getElementById("github-projects").innerHTML = "<p>Could not load GitHub repositories.</p>";
+    console.error("Error loading pinned repos:", err);
+    document.getElementById("github-projects").innerHTML =
+      "<p>Could not load pinned repositories.</p>";
   });
 
    // Script to open and close sidebar
