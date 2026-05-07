@@ -265,7 +265,7 @@ fetch(`https://pinned.berrysauce.dev/get/${githubUsername}`)
 
       card.innerHTML = `
         <div class="repo-card w3-white w3-hover-shadow w3-padding">
-          <h5><a href="${repo.link}" target="_blank">${repo.name}</a></h5>
+          <h5><a href="https://github.com/${githubUsername}/${repo.name}" target="_blank">${repo.name}</a></h5>
           <p class="repo-description">${repo.description || "No description."}</p>
           <div class="repo-footer">
             <i class="fa fa-star"></i> ${repo.stars} &nbsp;
