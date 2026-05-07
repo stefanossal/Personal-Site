@@ -249,7 +249,7 @@ html {
 // GitHub Projects Loader
 const githubUsername = "StefanosSal";
 
-fetch(`https://gh-pinned-repos.egoist.dev/?username=${githubUsername}`)
+fetch(`https://pinned.berrysauce.dev/get/${githubUsername}`)
   .then(res => res.json())
   .then(repos => {
     const container = document.getElementById("github-projects");
@@ -265,7 +265,7 @@ fetch(`https://gh-pinned-repos.egoist.dev/?username=${githubUsername}`)
 
       card.innerHTML = `
         <div class="repo-card w3-white w3-hover-shadow w3-padding">
-          <h5><a href="${repo.link}" target="_blank">${repo.repo}</a></h5>
+          <h5><a href="${repo.link}" target="_blank">${repo.name}</a></h5>
           <p class="repo-description">${repo.description || "No description."}</p>
           <div class="repo-footer">
             <i class="fa fa-star"></i> ${repo.stars} &nbsp;
@@ -283,6 +283,7 @@ fetch(`https://gh-pinned-repos.egoist.dev/?username=${githubUsername}`)
       "<p>Could not load pinned repositories.</p>";
   });
 
+   
    // Script to open and close sidebar
    function w3_open() {
     document.getElementById("mySidebar").style.display = "block";  // Open sidebar
